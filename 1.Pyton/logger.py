@@ -5,6 +5,7 @@ from data_create import id_data, title_data, body_data
 file_name = 'data.csv'
 dt_now = datetime.datetime.now().replace(microsecond=0)
 
+# функция вывоа данных в консоль
 def print_data():
     if os.path.exists(file_name):
         print("Вывoд данных из файла: ")
@@ -15,7 +16,7 @@ def print_data():
     else:
         print("Файл не существует.")
 
-
+# Функция добавления записи
 def input_data():
     print("Введите данные для добавления в файл: ")
     id = id_data()
@@ -25,9 +26,7 @@ def input_data():
         file.write(f'{id}; {dt_now}; {title}; {body}\n')
         print(f'Запись добавлена.')
 
-
-
-
+# Функция удаления данных по id или названию записи
 def delete_data(delete_string):
     with open(file_name, 'r', encoding='utf-8') as file:
         list_data = file.readlines()
@@ -37,9 +36,7 @@ def delete_data(delete_string):
             output_data.append(element)
             temp_record = element.split('; ')
             for record in temp_record:
-                
                 if delete_string.lower() == record.lower():
-                    
                     print(
                         f"Вы точно хотите удалить запись {temp_record}? \nВведите да - подтвердить удаление, нет - отменить удаление.")
                     if input().lower() == "да".lower():
@@ -49,7 +46,8 @@ def delete_data(delete_string):
 
         if not is_found:
             print("Таких засисей нет. ")
-        else:
+        else: 
+            # перезаписываем id
             count=1
             new_output_data=[]
             for element in output_data:
@@ -62,5 +60,19 @@ def delete_data(delete_string):
                 for line in new_output_data:
                     file.write(line)
               
+# Функция поиска данных по подстроке
+def filter_data(filter_string):
+    with open(file_name, 'r', encoding='utf-8') as file:
+        list_data = file.readlines()
+        is_found = False
+        for element in list_data:
+            if filter_string.lower() in element.lower():
+                print(element)
+                is_found = True
+    if not is_found:
+        print("Таких записей нет. ")
+
+
+
 
 

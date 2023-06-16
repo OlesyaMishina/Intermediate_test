@@ -6,7 +6,7 @@ def interface():
     print("""Выберите режим работы:
              1 - добавление записи
              2 - вывод всех данных
-             3 - посик данных
+             3 - поиск данных
              4 - удаление данных
              5 - замена данных
              6 - выход из программы
@@ -22,7 +22,7 @@ def interface():
         elif command_number == 2:
             print_data()
         elif command_number == 3:
-            print("Введите параметры поиска: ")
+            print("Введите искомую информацию (подстроку): ")
             filter_string = input()
             filter_data(filter_string)
         elif command_number == 4:
