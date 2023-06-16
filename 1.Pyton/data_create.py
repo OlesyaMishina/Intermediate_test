@@ -1,6 +1,3 @@
-# def datetime():
-#     datetime=
-#     return datetime
 
 import os
 
@@ -13,10 +10,7 @@ def id_data():
             id=int(file.readlines()[-1].split(';')[0])+1
     else:
         id=1
-    return id
-
-
-          
+    return id         
 
 
 def title_data():
