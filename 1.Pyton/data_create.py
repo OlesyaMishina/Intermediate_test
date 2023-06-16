@@ -16,21 +16,7 @@ def id_data():
     return id
 
 
-def id_update():
-    if os.path.exists(file_name):
-        count=1
-        new_list_data = []
-        with open(file_name, 'r', encoding='utf-8') as file:
-            list_data = file.readlines()
-            for element in list_data:
-                note=element.split(';')
-                print(note)
-                note[0]=count
-                new_list_data.append(note)
-                print(new_list_data)
-                count=count+1
-    else:
-        print("Файл не существует.")            
+          
 
 
 def title_data():
