@@ -30,11 +30,8 @@ def interface():
             delete_string = input()
             delete_data(delete_string)
         elif command_number == 5:
-            print("Введите параметры записи для изменения данных: ")
-            delete_string = input()
-            print("Введите данные для замены: ")
-            replace_string = input()
-            replace_data(delete_string, replace_string)
+            find_id = int(input("Введите id изменяемой записи: "))
+            replace_data(find_id)
         print("""Выберите режим работы:
              1 - добавление записи
              2 - вывод всех данных
