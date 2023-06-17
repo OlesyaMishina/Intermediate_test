@@ -1,4 +1,5 @@
-from logger import input_data, print_data, filter_data, delete_data, replace_data
+import datetime
+from logger import input_data, print_data, filter_data, delete_data, replace_data, search_date
 
 
 def interface():
@@ -12,8 +13,8 @@ def interface():
              6 - выход из программы
              """)
     command_number = int(input("Введите номер комманды: "))
-    while command_number!=6:
-        while command_number < 1 or command_number > 6:
+    while command_number!=7:
+        while command_number < 1 or command_number > 7:
             print("Введите корректный номер комманды:")
             command_number = int(input("Введите номер комманды: "))
 
@@ -32,13 +33,17 @@ def interface():
         elif command_number == 5:
             find_id = int(input("Введите id изменяемой записи: "))
             replace_data(find_id)
+        elif command_number == 6:
+            find_date = datetime.datetime.fromisoformat(input("Введите дату в формате гггг-мм-дд: "))
+            search_date(find_date)
         print("""Выберите режим работы:
              1 - добавление записи
              2 - вывод всех данных
              3 - посик данных
              4 - удаление данных
              5 - замена данных
-             6 - выход из программы
+             6 - выбрать записи по дате
+             7 - выход из программы
              """)
         command_number = int(input("Введите номер комманды: "))
     print("Вы вышли из программы.")

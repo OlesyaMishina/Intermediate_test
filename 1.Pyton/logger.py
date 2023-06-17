@@ -36,7 +36,7 @@ def delete_data(delete_string):
             output_data.append(element)
             temp_record = element.split('; ')
             for record in temp_record:
-                if delete_string.lower() == record.lower() and len(delete_string()) == len(record()):
+                if (delete_string.lower() == record.lower() and len(delete_string) == len(record)):
                     print(
                         f"Вы точно хотите удалить запись {temp_record}? \nВведите да - подтвердить удаление, нет - отменить удаление.")
                     if input().lower() == "да".lower():
@@ -99,7 +99,18 @@ def replace_data(find_id):
                 for line in output_data:
                     file.write(line)
 
-
-
+#Функция делает выборку по дате.
+def search_date(find_date):
+    with open(file_name, 'r', encoding='utf-8') as file:
+        list_data = file.readlines()
+        for element in list_data:
+            is_found = False
+            temp=datetime.datetime.fromisoformat(element.split('; ')[1].split(' ')[0] )
+            if temp.date()==find_date.date():
+                   is_found = True
+                   print('n')
+                   print(element)
+        if not is_found:
+            print("Записей с такой датой не существует.") 
 
 
