@@ -36,7 +36,7 @@ def delete_data(delete_string):
             output_data.append(element)
             temp_record = element.split('; ')
             for record in temp_record:
-                if delete_string.lower() == record.lower():
+                if delete_string.lower() == record.lower() and len(delete_string()) == len(record()):
                     print(
                         f"Вы точно хотите удалить запись {temp_record}? \nВведите да - подтвердить удаление, нет - отменить удаление.")
                     if input().lower() == "да".lower():
@@ -74,7 +74,6 @@ def filter_data(filter_string):
 
 # Функция редактирования записи
 def replace_data(find_id):
-    
     with open(file_name, 'r', encoding='utf-8') as file:
         list_data = file.readlines()
         is_found =False
