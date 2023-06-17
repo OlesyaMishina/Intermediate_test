@@ -95,6 +95,7 @@ def replace_data(find_id):
             print("Записи с таким id не существует. ")
 
         else:
+            print(f'Запись с id {id} изменена.')
             with open(file_name, 'w', encoding='utf-8') as file:
                 for line in output_data:
                     file.write(line)
@@ -108,9 +109,12 @@ def search_date(find_date):
             temp=datetime.datetime.fromisoformat(element.split('; ')[1].split(' ')[0] )
             if temp.date()==find_date.date():
                    is_found = True
-                   print('n')
                    print(element)
         if not is_found:
             print("Записей с такой датой не существует.") 
+
+
+
+    
 
 
