@@ -56,4 +56,11 @@ public class Console implements View {
         }
         
     }
+
+    private void addToy() {
+        CollecterInfo collecterInfo = new CollecterInfo();
+        collecterInfo = collecterInfo.getInfoFromUser();
+        System.out.printf("Игрушка добавлена.");
+
+    }
 }
