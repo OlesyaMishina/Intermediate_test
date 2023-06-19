@@ -1,6 +1,7 @@
 package presenter;
 
 import model.Service;
+import view.CollecterInfo;
 import view.View;
 
 public class Presenter {
@@ -11,5 +12,10 @@ public class Presenter {
         this.view = view;
         this.service = service;
         view.setPresenter(this);
+    }
+
+    
+    public void addToy(CollecterInfo collecterInfo) {
+        service.addToy(collecterInfo);
     }
 }

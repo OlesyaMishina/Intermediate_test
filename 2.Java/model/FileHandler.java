@@ -4,14 +4,14 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.PriorityQueue;
+import java.util.List;
 
 /**
  * FileHandler
  */
 public class FileHandler {
 
-    public void SaveToFile(PriorityQueue<Toy> listToys, String filename) {
+    public void SaveToFile(List<Toy> listToys, String filename) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
             oos.writeObject(listToys);
             oos.flush();
@@ -21,11 +21,11 @@ public class FileHandler {
         }
     }
 
-    public PriorityQueue<Toy> LoadFromFile(String filename) {
-        PriorityQueue<Toy> listToys = null;
+    public List<Toy> LoadFromFile(String filename) {
+        List<Toy> listToys = null;
         try (
                 ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
-            listToys = ((PriorityQueue<Toy>) ois.readObject());
+            listToys = ((List<Toy>) ois.readObject());
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }

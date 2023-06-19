@@ -60,6 +60,7 @@ public class Console implements View {
     private void addToy() {
         CollecterInfo collecterInfo = new CollecterInfo();
         collecterInfo = collecterInfo.getInfoFromUser();
+        presenter.addToy(collecterInfo);
         System.out.printf("Игрушка добавлена.");
 
     }

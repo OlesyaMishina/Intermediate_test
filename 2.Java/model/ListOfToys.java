@@ -1,18 +1,35 @@
 package model;
 
-import java.util.PriorityQueue;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * ListOfToys
  */
 public class ListOfToys {
 
-    private PriorityQueue<Toy> listToys;
+    private List<Toy> listToys;
     private String filename;
 
-    public void addToy (Toy oneToy){
+    public ListOfToys() {
+        listToys = new ArrayList<>();
+    }
+
+    public void addToy(Toy oneToy) {
         listToys.add(oneToy);
     }
-    
-    
+
+    public Toy getToyByName(String name) {
+        Toy findToy = null;
+        for (int i = 0; i < listToys.size(); i++) {
+            if (listToys.get(i).getName().equals(name)) {
+                findToy = listToys.get(i);
+            }
+        }
+        return findToy;
+    }
+
+    public List<Toy> getToyList() {
+        return listToys;
+    }
 }
