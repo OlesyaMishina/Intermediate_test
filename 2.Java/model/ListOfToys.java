@@ -1,12 +1,13 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * ListOfToys
  */
-public class ListOfToys {
+public class ListOfToys implements Serializable {
 
     private List<Toy> listToys;
     private String filename;

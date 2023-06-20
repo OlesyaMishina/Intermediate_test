@@ -31,4 +31,9 @@ public class Service {
         listToys = fileHandler.LoadFromFile(filename);
         return listToys.getToysList().toString();
     }
+
+    public String saveToysList() {
+        fileHandler.SaveToFile(listToys, filename);
+        return listToys.getToysList().toString();
+    }
 }

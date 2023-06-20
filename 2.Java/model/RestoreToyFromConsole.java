@@ -10,7 +10,7 @@ public class RestoreToyFromConsole {
         if (listToys.getToysList() == null)
             toy.setId(1);
         else {
-            int maxId = 1;
+            int maxId = 0;
             for (int i = 0; i < listToys.getToysList().size(); i++) {
                 if (listToys.getToysList().get(i).getId() > maxId)
                     maxId = listToys.getToysList().get(i).getId();

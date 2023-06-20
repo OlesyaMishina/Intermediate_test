@@ -1,9 +1,11 @@
 package model;
 
+import java.io.Serializable;
+
 /**
  * Toy
  */
-public class Toy {
+public class Toy implements Serializable {
 
     private int id;
     private String name;
@@ -52,6 +54,6 @@ public class Toy {
 
     @Override
     public String toString() {
-        return id + ", " + name + ", " + count + ", " + weight;
+        return id + ", " + name + ", " + count + ", " + weight + ";\n";
     }
 }

@@ -29,7 +29,7 @@ public class Console implements View {
 
     @Override
     public void start() {
-         while (work) {
+        while (work) {
             ToChooseStart start = new ToChooseStart();
             int choice = start.toChoose();
             switch (choice) {
@@ -42,35 +42,47 @@ public class Console implements View {
                 case 3:
                     addToy();
                     break;
-                // case 4:
-                //     deleteToyById();
-                //     break;
-                // case 5:
-                //     saveToysInFile();
-                //     break;
-                // case 6:
-                //     exit();
-                //     break;
+                case 4:
+                    deleteToyById();
+                    break;
+                case 5:
+                    saveToysInFile();
+                    break;
+                case 6:
+                    exit();
+                    // break;
                 default:
                     System.out.println("Введите число!");
             }
         }
-        
+
     }
 
     private void addToy() {
         CollecterInfo collecterInfo = new CollecterInfo();
         collecterInfo = collecterInfo.getInfoFromUser();
-        presenter.addToy(collecterInfo);
-        System.out.printf("Игрушка добавлена.");
+        presenter.addRecord(collecterInfo);
+        System.out.printf("Игрушка" + collecterInfo.getName() + "добавлена.");
 
     }
-        private void loadAllToys() {
+
+    private void loadAllToys() {
         System.out.printf("\nFile " + filename + " has been loaded:\n");
-        presenter.loadAllToys();
+        presenter.loadAllRecords();
     }
 
     private void getAllToys() {
-        presenter.getAllToys();
+        presenter.getAllRecords();
+    }
+
+    private void saveToysInFile() {
+        System.out.printf("File " + filename + " has been written.\n");
+        presenter.saveRecords();
+    }
+
+    private void exit() {
+        System.out.println("Работа программы завершена.");
+        scanner.close();
+        work = false;
     }
 }

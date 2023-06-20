@@ -7,25 +7,29 @@ import view.View;
 public class Presenter {
     private View view;
     private Service service;
-    
+
     public Presenter(View view, Service service) {
         this.view = view;
         this.service = service;
         view.setPresenter(this);
     }
 
-    
-    public void addToy(CollecterInfo collecterInfo) {
+    public void addRecord(CollecterInfo collecterInfo) {
         service.addToy(collecterInfo);
     }
 
-    public void getAllToys() {
+    public void getAllRecords() {
         String answer = service.getToysList();
         view.print(answer);
     }
 
-    public void loadAllToys() {
+    public void loadAllRecords() {
         String answer = service.loadToysList();
+        view.print(answer);
+    }
+
+    public void saveRecords() {
+        String answer = service.saveToysList();
         view.print(answer);
     }
 }
