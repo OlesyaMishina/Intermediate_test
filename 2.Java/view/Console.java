@@ -43,7 +43,7 @@ public class Console implements View {
                     addToy();
                     break;
                 case 4:
-                    deleteToyById();
+                    raffleToy();
                     break;
                 case 5:
                     saveToysInFile();
@@ -55,15 +55,6 @@ public class Console implements View {
                     System.out.println("Введите число!");
             }
         }
-
-    }
-
-    private void addToy() {
-        CollecterInfo collecterInfo = new CollecterInfo();
-        collecterInfo = collecterInfo.getInfoFromUser();
-        presenter.addRecord(collecterInfo);
-        System.out.printf("Игрушка" + collecterInfo.getName() + "добавлена.");
-
     }
 
     private void loadAllToys() {
@@ -71,8 +62,19 @@ public class Console implements View {
         presenter.loadAllRecords();
     }
 
-    private void getAllToys() {
+        private void getAllToys() {
         presenter.getAllRecords();
+    }
+
+    private void addToy() {
+        CollecterInfo collecterInfo = new CollecterInfo();
+        collecterInfo = collecterInfo.getInfoFromUser();
+        presenter.addRecord(collecterInfo);
+        System.out.printf("Игрушка " + collecterInfo.getName() + " добавлена.");
+    }
+
+    private void raffleToy() {
+        presenter.chooseRecord();
     }
 
     private void saveToysInFile() {

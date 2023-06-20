@@ -3,6 +3,7 @@ package model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * ListOfToys
@@ -10,7 +11,6 @@ import java.util.List;
 public class ListOfToys implements Serializable {
 
     private List<Toy> listToys;
-    private String filename;
 
     public ListOfToys() {
         listToys = new ArrayList<>();
@@ -18,6 +18,11 @@ public class ListOfToys implements Serializable {
 
     public void addToy(Toy oneToy) {
         listToys.add(oneToy);
+    }
+
+    public void deleteToy(Toy oneToy) {
+        
+        listToys.remove(oneToy);
     }
 
     public Toy getToyByName(String name) {
@@ -32,5 +37,31 @@ public class ListOfToys implements Serializable {
 
     public List<Toy> getToysList() {
         return listToys;
+    }
+
+    public String raffleStart() {
+        Toy raffleToy = null;
+        int size = 0;
+        int probability = 0;
+        for (int i = 0; i < listToys.size(); i++) {
+            size = size + listToys.get(i).getCount();
+            probability = probability + listToys.get(i).getWeight() * listToys.get(i).getCount();
+        }
+
+        for (int i = 0; i < listToys.size(); i++) {
+            System.out.println("Вероятность числа \"" + listToys.get(i) + "\":  \t"
+                    + (listToys.get(i).getWeight() * listToys.get(i).getCount() * 100d / probability) + "%");
+        }
+        Random random = new Random();
+        int index = random.nextInt(probability); // Выбираем случайный индекс из воображаемого массива
+        for (int i = 0; i < size - 1; i++) { // Ищем элемент, которому принадлежит этот индекс
+            index -= listToys.get(i).getWeight() * listToys.get(i).getCount();
+            if (index < 0) {
+                System.out.println("Выпала призовая игрушка: " + listToys.get(i).toString());
+                raffleToy = listToys.get(i);
+                break;
+            }
+        }
+        return raffleToy.getName();
     }
 }

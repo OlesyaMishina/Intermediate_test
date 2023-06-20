@@ -28,6 +28,11 @@ public class Presenter {
         view.print(answer);
     }
 
+    public void chooseRecord() {
+        String answer = service.raffleToy();
+        view.print(answer);
+    }
+
     public void saveRecords() {
         String answer = service.saveToysList();
         view.print(answer);
