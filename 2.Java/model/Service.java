@@ -1,6 +1,5 @@
 package model;
 
-
 import view.CollecterInfo;
 
 public class Service {
@@ -9,11 +8,9 @@ public class Service {
     private String filename = "listToys.dat";
 
     public Service(ListOfToys listToys) {
-        this.listToys=listToys;
+        this.listToys = listToys;
         fileHandler = new FileHandler();
     }
-
-
 
     public void addToy(CollecterInfo collecterInfo) {
         // boolean find=false;
@@ -23,5 +20,15 @@ public class Service {
             // find=true;
             listToys.addToy(toy);
         }
+
+    }
+
+    public String getToysList() {
+        return listToys.getToysList().toString();
+    }
+
+    public String loadToysList() {
+        listToys = fileHandler.LoadFromFile(filename);
+        return listToys.getToysList().toString();
     }
 }

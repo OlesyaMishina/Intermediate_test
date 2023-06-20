@@ -18,4 +18,14 @@ public class Presenter {
     public void addToy(CollecterInfo collecterInfo) {
         service.addToy(collecterInfo);
     }
+
+    public void getAllToys() {
+        String answer = service.getToysList();
+        view.print(answer);
+    }
+
+    public void loadAllToys() {
+        String answer = service.loadToysList();
+        view.print(answer);
+    }
 }

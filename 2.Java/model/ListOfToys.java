@@ -29,7 +29,7 @@ public class ListOfToys {
         return findToy;
     }
 
-    public List<Toy> getToyList() {
+    public List<Toy> getToysList() {
         return listToys;
     }
 }

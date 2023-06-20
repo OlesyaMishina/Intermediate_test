@@ -10,6 +10,7 @@ public class Console implements View {
 
     private Scanner scanner;
     private Presenter presenter;
+    public String filename = "listToys.dat";
     private boolean work = true;
 
     public Console() {
@@ -33,7 +34,7 @@ public class Console implements View {
             int choice = start.toChoose();
             switch (choice) {
                 case 1:
-                    loadAllToys()
+                    loadAllToys();
                     break;
                 case 2:
                     getAllToys();
@@ -41,15 +42,15 @@ public class Console implements View {
                 case 3:
                     addToy();
                     break;
-                case 4:
-                    deleteToyById();
-                    break;
-                case 5:
-                    saveToysInFile();
-                    break;
-                case 6:
-                    exit();
-                    break;
+                // case 4:
+                //     deleteToyById();
+                //     break;
+                // case 5:
+                //     saveToysInFile();
+                //     break;
+                // case 6:
+                //     exit();
+                //     break;
                 default:
                     System.out.println("Введите число!");
             }
@@ -63,5 +64,13 @@ public class Console implements View {
         presenter.addToy(collecterInfo);
         System.out.printf("Игрушка добавлена.");
 
+    }
+        private void loadAllToys() {
+        System.out.printf("\nFile " + filename + " has been loaded:\n");
+        presenter.loadAllToys();
+    }
+
+    private void getAllToys() {
+        presenter.getAllToys();
     }
 }

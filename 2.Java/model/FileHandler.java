@@ -21,11 +21,11 @@ public class FileHandler {
         }
     }
 
-    public List<Toy> LoadFromFile(String filename) {
-        List<Toy> listToys = null;
+    public ListOfToys LoadFromFile(String filename) {
+        ListOfToys listToys = null;
         try (
                 ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
-            listToys = ((List<Toy>) ois.readObject());
+            listToys = ((ListOfToys) ois.readObject());
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
