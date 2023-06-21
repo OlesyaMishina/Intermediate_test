@@ -1,5 +1,6 @@
 
 
+import model.ListOfPrizeToy;
 import model.ListOfToys;
 import model.Service;
 import presenter.Presenter;
@@ -12,8 +13,9 @@ public class main {
         
 
         ListOfToys listToys = new ListOfToys();
+        ListOfPrizeToy listPrizeToys = new ListOfPrizeToy();
         View view = new Console();
-        Service service = new Service(listToys);
+        Service service = new Service(listToys, listPrizeToys);
         Presenter presenter = new Presenter(view, service);
         view.start();
     }
