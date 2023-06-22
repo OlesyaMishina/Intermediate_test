@@ -38,7 +38,7 @@ public class ListOfToys implements Serializable {
         return listToys;
     }
 
-    public String raffleStart() {
+    public Toy raffleStart() {
         // if (listToys != null) {
             Toy raffleToy = null;
             int size = 0;
@@ -61,7 +61,7 @@ public class ListOfToys implements Serializable {
                     break;
                 }
             }
-            return raffleToy.getName();
+            return raffleToy;
         }
     //     else return "Список игрушек пуст.";
     // }

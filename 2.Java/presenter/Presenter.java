@@ -29,7 +29,7 @@ public class Presenter {
     }
 
     public void chooseRecord() {
-        String answer = service.raffleToy();
+        String answer = service.raffleToy().toString();
         view.print(answer);
     }
 

@@ -63,26 +63,27 @@ public class Service {
         return listPrizeToys;
     }
 
-    public String raffleToy() {
+    public Toy raffleToy() {
+        Toy raffleToy = listToys.raffleStart();
+
         if (listToys.getToysList().size() > 1 | listToys.getToysList().get(0).getCount() > 1) {
-            String raffleName = listToys.raffleStart();
-            // System.out.println(listToys.getToysList().size());
-            // System.out.println(listToys.getToyByName(raffleName));
-            // System.out.println(listToys.getToyByName(raffleName).getCount());
-            if (listToys.getToyByName(raffleName).getCount() > 1) {
+            if (listToys.getToyByName(raffleToy.getName()).getCount() > 1) {
                 // addRaffleToy(listToys.getToyByName(raffleName));
-                listToys.getToyByName(raffleName).setCount(listToys.getToyByName(raffleName).getCount() - 1);
+                listToys.getToyByName(raffleToy.getName())
+                        .setCount(listToys.getToyByName(raffleToy.getName()).getCount() - 1);
                 // System.out.println(listPrizeToys.peek().toString());
             } else {
                 // addRaffleToy(listToys.getToyByName(raffleName));
-                listToys.deleteToy(listToys.getToyByName(raffleName));
+                listToys.deleteToy(listToys.getToyByName(raffleToy.getName()));
                 // System.out.println(listPrizeToys.peek().toString());
             }
-            return raffleName;
+
         } else {
-            System.out.println(listToys.getToysList().toString());
+            raffleToy=listToys.getToysList().get(0);
+            System.out.println(raffleToy.toString() + "Это была последняя игрушка.");
             listToys.deleteToy(listToys.getToysList().get(0));
-            return "Это была последняя игрушка.";
+            return raffleToy;
         }
+        return raffleToy;
     }
 }
