@@ -37,4 +37,9 @@ public class Presenter {
         String answer = service.saveToysList();
         view.print(answer);
     }
+
+    public void getAllChooseRecords() {
+        String answer = service.getPrizeToysList();
+        view.print(answer);
+    }
 }

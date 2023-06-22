@@ -46,9 +46,12 @@ public class Console implements View {
                     raffleToy();
                     break;
                 case 5:
-                    saveToysInFile();
+                    getAllPrizeToys();
                     break;
                 case 6:
+                    saveToysInFile();
+                    break;
+                case 7:
                     exit();
                     // break;
                 default:
@@ -62,8 +65,12 @@ public class Console implements View {
         presenter.loadAllRecords();
     }
 
-        private void getAllToys() {
+    private void getAllToys() {
         presenter.getAllRecords();
+    }
+
+    private void getAllPrizeToys() {
+        presenter.getAllChooseRecords();
     }
 
     private void addToy() {

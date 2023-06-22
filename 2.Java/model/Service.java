@@ -1,17 +1,21 @@
 package model;
 
+import java.util.Comparator;
+import java.util.PriorityQueue;
+
 import view.CollecterInfo;
 
 public class Service {
     private ListOfToys listToys;
-    private ListOfPrizeToy listPrizeToys;
+    // private ListOfPrizeToy listPrizeToys;
     private FileHandler fileHandler;
     private String filename = "listToys.dat"; // файл для хранения списка возможных игрушек
     private String filenameIssued = "listIssuedToys.dat"; // файл для записи выданных игрушек
+    private PriorityQueue<Toy> listPrizeToys = new PriorityQueue<Toy>(5, new ComparatorById());
 
-    public Service(ListOfToys listToys, ListOfPrizeToy listPrizeToys) {
+    public Service(ListOfToys listToys) {
         this.listToys = listToys;
-        this.listPrizeToys = listPrizeToys;
+        // this.listPrizeToys = listPrizeToys;
         fileHandler = new FileHandler();
     }
 
@@ -30,6 +34,14 @@ public class Service {
         return listToys.getToysList().toString();
     }
 
+    public String getPrizeToysList() {
+        String listPrize = "Cписок призовых игрушек:\n";
+        while (!listPrizeToys.isEmpty()) {
+            listPrize = listPrize + listPrizeToys.poll().toString() + "\n";
+        }
+        return listPrize;
+    }
+
     public String loadToysList() {
         listToys = fileHandler.LoadFromFile(filename);
         return listToys.getToysList().toString();
@@ -40,18 +52,31 @@ public class Service {
         return listToys.getToysList().toString();
     }
 
-    public String raffleToy() {
-        if (listToys.getToysList().size() > 1 | listToys.getToysList().get(0).getCount()>1) {
-            String raffleName = listToys.raffleStart();
-            System.out.println(listToys.getToysList().size());
+    public PriorityQueue<Toy> addRaffleToy(Toy oneToy) {
+        if (listPrizeToys.isEmpty()) {
+            oneToy.setId(1);
+            listPrizeToys.add(oneToy);
+        } else {
+            oneToy.setId(listPrizeToys.peek().getId() + 1);
+            listPrizeToys.add(oneToy);
+        }
+        return listPrizeToys;
+    }
 
-            System.out.println(listToys.getToyByName(raffleName));
-            System.out.println(listToys.getToyByName(raffleName).getCount());
+    public String raffleToy() {
+        if (listToys.getToysList().size() > 1 | listToys.getToysList().get(0).getCount() > 1) {
+            String raffleName = listToys.raffleStart();
+            // System.out.println(listToys.getToysList().size());
+            // System.out.println(listToys.getToyByName(raffleName));
+            // System.out.println(listToys.getToyByName(raffleName).getCount());
             if (listToys.getToyByName(raffleName).getCount() > 1) {
+                // addRaffleToy(listToys.getToyByName(raffleName));
                 listToys.getToyByName(raffleName).setCount(listToys.getToyByName(raffleName).getCount() - 1);
+                // System.out.println(listPrizeToys.peek().toString());
             } else {
+                // addRaffleToy(listToys.getToyByName(raffleName));
                 listToys.deleteToy(listToys.getToyByName(raffleName));
-                // listPrizeToys.addRaffleToy(listToys.getToyByName(raffleName));
+                // System.out.println(listPrizeToys.peek().toString());
             }
             return raffleName;
         } else {
