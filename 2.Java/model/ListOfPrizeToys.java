@@ -6,20 +6,21 @@ import java.util.PriorityQueue;
 /**
  * ListOfPrizeToy
  */
-public class ListOfPriz {
+public class ListOfPrizeToys {
 
-    private PriorityQueue<Toy> listPrizeToys = new PriorityQueue<Toy>(15, new ComparatorById());
+    private PriorityQueue<Toy> listPrizeToys;
 
-    public ListOfPriz() {
-        listPrizeToys = new PriorityQueue<>();
+    public ListOfPrizeToys() {
+        listPrizeToys = new PriorityQueue<>(15, new ComparatorById());
     }
 
     public void addRaffleToy(Toy oneToy) {
-        if (listPrizeToys.isEmpty()) {
+
+        if (listPrizeToys.size() == 0) {
             oneToy.setId(1);
             listPrizeToys.add(oneToy);
-        } else {
-            oneToy.setId(listPrizeToys.peek().getId() + 1);
+           } else {
+            oneToy.setId(listPrizeToys.size() + 1);
             listPrizeToys.add(oneToy);
         }
     }
@@ -34,12 +35,20 @@ public class ListOfPriz {
 
     public boolean isEmpty() {
         if (listPrizeToys.isEmpty())
-            return false;
-        return false;
+            return true;
+        return true;
     }
 
     public Toy poll() {
         return listPrizeToys.poll();
+    }
+
+    public Toy peek() {
+        return listPrizeToys.peek();
+    }
+
+    public void add(Toy oneToy) {
+        listPrizeToys.add(oneToy);
     }
 
 }

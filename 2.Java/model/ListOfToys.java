@@ -39,30 +39,27 @@ public class ListOfToys implements Serializable {
     }
 
     public Toy raffleStart() {
-        // if (listToys != null) {
-            Toy raffleToy = null;
-            int size = 0;
-            int probability = 0;
-            for (int i = 0; i < listToys.size(); i++) {
-                size = size + listToys.get(i).getCount();
-                probability = probability + listToys.get(i).getWeight() * listToys.get(i).getCount();
-            }
-            for (int i = 0; i < listToys.size(); i++) {
-                System.out.println("Вероятность числа \"" + listToys.get(i) + "\":  \t"
-                        + (listToys.get(i).getWeight() * listToys.get(i).getCount() * 100d / probability) + "%");
-            }
-            Random random = new Random();
-            int index = random.nextInt(probability); // Выбираем случайный индекс из воображаемого массива
-            for (int i = 0; i < size - 1; i++) { // Ищем элемент, которому принадлежит этот индекс
-                index -= listToys.get(i).getWeight() * listToys.get(i).getCount();
-                if (index < 0) {
-                    System.out.println("Выпала призовая игрушка: " + listToys.get(i).toString());
-                    raffleToy = listToys.get(i);
-                    break;
-                }
-            }
-            return raffleToy;
+        Toy raffleToy = listToys.get(0);
+        int size = 0;
+        int probability = 0;
+        for (int i = 0; i < listToys.size(); i++) {
+            size = size + listToys.get(i).getCount();
+            probability = probability + listToys.get(i).getWeight() * listToys.get(i).getCount();
         }
-    //     else return "Список игрушек пуст.";
-    // }
+        for (int i = 0; i < listToys.size(); i++) {
+            System.out.println("Вероятность числа \"" + listToys.get(i) + "\":  \t"
+                    + (listToys.get(i).getWeight() * listToys.get(i).getCount() * 100d / probability) + "%");
+        }
+        Random random = new Random();
+        int index = random.nextInt(probability); // Выбираем случайный индекс из воображаемого массива
+        for (int i = 0; i < size - 1; i++) { // Ищем элемент, которому принадлежит этот индекс
+            index -= listToys.get(i).getWeight() * listToys.get(i).getCount();
+            if (index < 0) {
+                System.out.println("Выпала призовая игрушка: " + listToys.get(i).toString());
+                raffleToy = listToys.get(i);
+                break;
+            }
+        }
+        return raffleToy;
+    }
 }

@@ -7,15 +7,16 @@ import view.CollecterInfo;
 
 public class Service {
     private ListOfToys listToys;
-    // private ListOfPrizeToy listPrizeToys;
+    private ListOfPrizeToys listPrizeToys;
     private FileHandler fileHandler;
     private String filename = "listToys.dat"; // файл для хранения списка возможных игрушек
     private String filenameIssued = "listIssuedToys.dat"; // файл для записи выданных игрушек
-    private PriorityQueue<Toy> listPrizeToys = new PriorityQueue<Toy>(5, new ComparatorById());
+    // public PriorityQueue<Toy> listPrizeToys = new PriorityQueue<Toy>(5, new
+    // ComparatorById());
 
-    public Service(ListOfToys listToys) {
+    public Service(ListOfToys listToys, ListOfPrizeToys listPrizeToys) {
         this.listToys = listToys;
-        // this.listPrizeToys = listPrizeToys;
+        this.listPrizeToys = listPrizeToys;
         fileHandler = new FileHandler();
     }
 
@@ -35,11 +36,11 @@ public class Service {
     }
 
     public String getPrizeToysList() {
-        String listPrize = "Cписок призовых игрушек:\n";
-        while (!listPrizeToys.isEmpty()) {
-            listPrize = listPrize + listPrizeToys.poll().toString() + "\n";
-        }
-        return listPrize;
+        System.out.println("Cписок призовых игрушек:\n");
+        // while (!listPrizeToys.isEmpty()) {
+        //     System.out.println(listPrizeToys.peek().toString() + "\n");
+        // }
+        return listPrizeToys.getPrizeToysList().toString();
     }
 
     public String loadToysList() {
@@ -47,43 +48,44 @@ public class Service {
         return listToys.getToysList().toString();
     }
 
+    // public String loadPrizeToysList() {
+    // listPrizeToys = fileHandler.LoadFromFilePQ(filenameRaffle);
+    // return listPrizeToys.toString();
+    // }
+
+    // public String savePrizeToysList() {
+    // fileHandler.SaveToFilePQ(listPrizeToys, filenameRaffle);
+    // return listPrizeToys.toString();
+    // }
+
     public String saveToysList() {
         fileHandler.SaveToFile(listToys, filename);
         return listToys.getToysList().toString();
     }
 
-    public PriorityQueue<Toy> addRaffleToy(Toy oneToy) {
-        if (listPrizeToys.isEmpty()) {
-            oneToy.setId(1);
-            listPrizeToys.add(oneToy);
-        } else {
-            oneToy.setId(listPrizeToys.peek().getId() + 1);
-            listPrizeToys.add(oneToy);
-        }
-        return listPrizeToys;
-    }
-
-    public Toy raffleToy() {
+    public ListOfPrizeToys raffleToy() {
         Toy raffleToy = listToys.raffleStart();
-
+        // System.out.println(raffleToy.toString());
+        // listPrizeToys.addRaffleToy(raffleToy);
         if (listToys.getToysList().size() > 1 | listToys.getToysList().get(0).getCount() > 1) {
             if (listToys.getToyByName(raffleToy.getName()).getCount() > 1) {
-                // addRaffleToy(listToys.getToyByName(raffleName));
+                listPrizeToys.addRaffleToy(listToys.getToyByName(raffleToy.getName()));
                 listToys.getToyByName(raffleToy.getName())
                         .setCount(listToys.getToyByName(raffleToy.getName()).getCount() - 1);
-                // System.out.println(listPrizeToys.peek().toString());
+                System.out.println(listPrizeToys.getPrizeToysList());
             } else {
-                // addRaffleToy(listToys.getToyByName(raffleName));
+                listPrizeToys.addRaffleToy(listToys.getToyByName(raffleToy.getName()));
                 listToys.deleteToy(listToys.getToyByName(raffleToy.getName()));
-                // System.out.println(listPrizeToys.peek().toString());
+                System.out.println(listPrizeToys.getPrizeToysList());
             }
-
         } else {
-            raffleToy=listToys.getToysList().get(0);
-            System.out.println(raffleToy.toString() + "Это была последняя игрушка.");
+            // raffleToy=listToys.getToysList().get(0);
+            listPrizeToys.addRaffleToy(listToys.getToyByName(raffleToy.getName()));
+            System.out.println("Это была последняя игрушка.");
             listToys.deleteToy(listToys.getToysList().get(0));
-            return raffleToy;
+            // return raffleToy;
+            System.out.println(listPrizeToys.getPrizeToysList());
         }
-        return raffleToy;
+        return listPrizeToys;
     }
 }
