@@ -1,8 +1,5 @@
 package model;
 
-import java.util.Comparator;
-import java.util.PriorityQueue;
-
 import view.CollecterInfo;
 
 public class Service {
@@ -10,9 +7,7 @@ public class Service {
     private ListOfPrizeToys listPrizeToys;
     private FileHandler fileHandler;
     private String filename = "listToys.dat"; // файл для хранения списка возможных игрушек
-    private String filenameIssued = "listIssuedToys.dat"; // файл для записи выданных игрушек
-    // public PriorityQueue<Toy> listPrizeToys = new PriorityQueue<Toy>(5, new
-    // ComparatorById());
+    private String fileGiveOut = "listGiveOutToys.dat"; // файл для записи выданных игрушек
 
     public Service(ListOfToys listToys, ListOfPrizeToys listPrizeToys) {
         this.listToys = listToys;
@@ -37,9 +32,6 @@ public class Service {
 
     public String getPrizeToysList() {
         System.out.println("Cписок призовых игрушек:\n");
-        // while (!listPrizeToys.isEmpty()) {
-        //     System.out.println(listPrizeToys.peek().toString() + "\n");
-        // }
         return listPrizeToys.getPrizeToysList().toString();
     }
 
@@ -47,16 +39,6 @@ public class Service {
         listToys = fileHandler.LoadFromFile(filename);
         return listToys.getToysList().toString();
     }
-
-    // public String loadPrizeToysList() {
-    // listPrizeToys = fileHandler.LoadFromFilePQ(filenameRaffle);
-    // return listPrizeToys.toString();
-    // }
-
-    // public String savePrizeToysList() {
-    // fileHandler.SaveToFilePQ(listPrizeToys, filenameRaffle);
-    // return listPrizeToys.toString();
-    // }
 
     public String saveToysList() {
         fileHandler.SaveToFile(listToys, filename);
@@ -88,4 +70,16 @@ public class Service {
         }
         return listPrizeToys;
     }
+
+    public void deletePrizeToy() {
+        Toy giveOutToy = listPrizeToys.poll();
+        System.out.println("Выдана игрушка: "+giveOutToy);
+        fileHandler.SaveToFileGiveOutToys(giveOutToy, fileGiveOut);
+    }
+
+    // public String savePrizeToy() {
+    // Toy giveOutToy = listPrizeToys.poll();
+    // fileHandler.SaveToFileGiveOutToys(giveOutToy, fileGiveOut);
+    // return listPrizeToys.toString();
+    // }
 }

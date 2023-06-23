@@ -2,6 +2,8 @@ package model;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.PriorityQueue;
@@ -32,25 +34,13 @@ public class FileHandler {
         return listToys;
     }
 
-
-    public void SaveToFilePQ(PriorityQueue<Toy> listPrizeToys, String filename) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
-            oos.writeObject(listPrizeToys);
-            oos.flush();
-            oos.close();
-        } catch (Exception ex) {
+    public void SaveToFileGiveOutToys(Toy giveOutToy, String filename) {
+try (FileWriter writer = new FileWriter(filename, true)) {
+            writer.write(giveOutToy.toString());
+            writer.flush();
+        } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
     }
-
-    public PriorityQueue<Toy> LoadFromFilePQ(String filename) {
-        PriorityQueue<Toy> listPrizeToys = null;
-        try (
-                ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
-            listPrizeToys = ((PriorityQueue<Toy>) ois.readObject());
-        } catch (Exception ex) {
-            System.out.println("Файл" + filename + "не существует." );
-        }
-        return listPrizeToys;
     }
-}
+

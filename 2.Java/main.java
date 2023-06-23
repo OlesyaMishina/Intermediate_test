@@ -1,10 +1,7 @@
 
-import java.util.PriorityQueue;
-
 import model.ListOfPrizeToys;
 import model.ListOfToys;
 import model.Service;
-
 import presenter.Presenter;
 import view.Console;
 import view.View;

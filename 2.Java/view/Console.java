@@ -49,9 +49,12 @@ public class Console implements View {
                     getAllPrizeToys();
                     break;
                 case 6:
-                    saveToysInFile();
+                    giveOutToy();
                     break;
                 case 7:
+                    saveToysInFile();
+                    break;
+                case 8:
                     exit();
                     // break;
                 default:
@@ -59,36 +62,41 @@ public class Console implements View {
             }
         }
     }
-
+//1 - Загрузить список доступных игрушек из файла\n" 
     private void loadAllToys() {
         System.out.printf("\nFile " + filename + " has been loaded:\n");
         presenter.loadAllRecords();
     }
-
+//2 - Распечатать список доступных игрушек\n
     private void getAllToys() {
         presenter.getAllRecords();
     }
-
-    private void getAllPrizeToys() {
-        presenter.getAllChooseRecords();
-    }
-
+//3 - Добавить игрушку в список доступных игрушек\n"
     private void addToy() {
         CollecterInfo collecterInfo = new CollecterInfo();
         collecterInfo = collecterInfo.getInfoFromUser();
         presenter.addRecord(collecterInfo);
         System.out.printf("Игрушка " + collecterInfo.getName() + " добавлена.");
     }
-
+//4 - Запустить розыгрыш призовой игрушки\n"
     private void raffleToy() {
         presenter.chooseRecord();
     }
+//5 - Распечатать список призовых игрушек\n
+    private void getAllPrizeToys() {
+        presenter.getAllChooseRecords();
+    }
+//6 - Выдать призовую игрушку из очереди\n
+    private void giveOutToy(){
+        presenter.deleteRecord();
+    }
 
+//7 - Сохрянить список доступных игрушек в файл\n
     private void saveToysInFile() {
         System.out.printf("File " + filename + " has been written.\n");
         presenter.saveRecords();
     }
-
+//8
     private void exit() {
         System.out.println("Работа программы завершена.");
         scanner.close();

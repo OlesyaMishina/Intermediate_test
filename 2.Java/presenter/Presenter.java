@@ -44,4 +44,8 @@ public class Presenter {
         view.print(answer);
     }
 
+    public void deleteRecord() {
+        service.deletePrizeToy();
+    }
+
 }
