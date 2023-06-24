@@ -35,7 +35,7 @@ public class Service {
     }
 
     public String getPrizeToysList() {
-        System.out.println("Cписок призовых игрушек:\n");
+        System.out.println("Cписок призовых игрушек:");
         if (listPrizeToys.getPrizeToysList().isEmpty())
             return "пуст. Запустите розыгрыш призовой игрушки.";
         else
@@ -56,8 +56,9 @@ public class Service {
     // количество меньше 1, удаляем ее, если боличнство
     // больше 1, уменьшаем количество. Разыгранную игрушку добавляем в список
     // призовых игрушек.
-    public ListOfPrizeToys raffleToy() {
-            Toy raffleToy = listToys.raffleStart();
+    public String raffleToy() {
+        Toy raffleToy = listToys.raffleStart();
+        if (raffleToy.getId() != 0) {
             listPrizeToys.addRaffleToy(raffleToy);
             if (listToys.getToysList().size() > 1 | listToys.getToysList().get(0).getCount() > 1) {
                 if (raffleToy.getCount() > 1) {
@@ -69,7 +70,9 @@ public class Service {
                 System.out.println("Это была последняя игрушка.");
                 listToys.deleteToy(listToys.getToysList().get(0));
             }
-        return listPrizeToys;
+            return "Выпала призовая игрушка: " + raffleToy.getName();
+        } else
+            return "Cписок призовых игрушек пуст. Запустите розыгрыш.";
     }
 
     // Удаление призовой игрушки, уладенная игрушка Дозаписывается в файл
