@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * ListOfToys
+ * ListOfToys список доступных игрушек для розыгрыша.
  */
 public class ListOfToys implements Serializable {
 
@@ -38,28 +38,45 @@ public class ListOfToys implements Serializable {
         return listToys;
     }
 
+    // Нахождение наиболее вероятной игрушки. При этом считаем
     public Toy raffleStart() {
         Toy raffleToy = listToys.get(0);
-        int size = 0;
-        int probability = 0;
+        int size = 0; // количество игрушек
+        int probability = 0; // общая вероятность
         for (int i = 0; i < listToys.size(); i++) {
+            // считаем количество игрушек всего, учитываем количество каждой игрушки
             size = size + listToys.get(i).getCount();
+            // считаем всю возможную вероятность, берем вероятность каждой игрушки, умножаем
+            // на ее количество и считаем сумму
             probability = probability + listToys.get(i).getWeight() * listToys.get(i).getCount();
         }
+        // не стала убирать расчет выпадения вероятности каждой игрушки, что бы наглядно
+        // было видно, как работает программа
         for (int i = 0; i < listToys.size(); i++) {
-            System.out.println("Вероятность числа \"" + listToys.get(i) + "\":  \t"
-                    + (listToys.get(i).getWeight() * listToys.get(i).getCount() * 100d / probability) + "%");
+            System.out.println("Вероятность выпадения игрушки " + listToys.get(i).getName() + " при количестве "
+                    + listToys.get(i).getCount() + ": "
+                    + "\n" + (listToys.get(i).getWeight() * listToys.get(i).getCount() * 100d) / probability + "%");
         }
         Random random = new Random();
         int index = random.nextInt(probability); // Выбираем случайный индекс из воображаемого массива
         for (int i = 0; i < size - 1; i++) { // Ищем элемент, которому принадлежит этот индекс
             index -= listToys.get(i).getWeight() * listToys.get(i).getCount();
             if (index < 0) {
-                System.out.println("Выпала призовая игрушка: " + listToys.get(i).toString());
+                System.out.println("\nВыпала призовая игрушка: " + listToys.get(i).getName());
                 raffleToy = listToys.get(i);
                 break;
             }
         }
         return raffleToy;
+    }
+
+    @Override
+    public String toString() {
+        String str = "";
+        System.out.println("Список доступных игрушек:");
+        for (int i = 0; i < listToys.size(); i++) {
+            str = str + listToys.get(i).toString() + "\n";
+        }
+        return str;
     }
 }

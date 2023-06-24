@@ -35,8 +35,8 @@ public class Presenter {
     }
 
     public void chooseRecord() {
-        String answer = service.raffleToy().toString();
-        view.print(answer);
+        service.raffleToy();
+        view.print("Игрушка добавлена в список призовых игрушек");
     }
 
     public void saveRecords() {

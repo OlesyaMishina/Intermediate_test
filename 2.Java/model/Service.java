@@ -27,12 +27,19 @@ public class Service {
     }
 
     public String getToysList() {
-        return listToys.getToysList().toString();
+        System.out.println("Cписок доступных игрушек:\n");
+        if (listToys.getToysList().isEmpty())
+            return "пуст. Загрузите список из файла или добавьте игрушки вручную.";
+        else
+            return listToys.getToysList().toString();
     }
 
     public String getPrizeToysList() {
         System.out.println("Cписок призовых игрушек:\n");
-        return listPrizeToys.getPrizeToysList().toString();
+        if (listPrizeToys.getPrizeToysList().isEmpty())
+            return "пуст. Запустите розыгрыш призовой игрушки.";
+        else
+            return listPrizeToys.getPrizeToysList().toString();
     }
 
     public String loadToysList() {
@@ -45,41 +52,35 @@ public class Service {
         return listToys.getToysList().toString();
     }
 
+    // Розыгрыш призовой игрушки. Работа со списком достуаных игрушей. Если
+    // количество меньше 1, удаляем ее, если боличнство
+    // больше 1, уменьшаем количество. Разыгранную игрушку добавляем в список
+    // призовых игрушек.
     public ListOfPrizeToys raffleToy() {
-        Toy raffleToy = listToys.raffleStart();
-        // System.out.println(raffleToy.toString());
-        // listPrizeToys.addRaffleToy(raffleToy);
-        if (listToys.getToysList().size() > 1 | listToys.getToysList().get(0).getCount() > 1) {
-            if (listToys.getToyByName(raffleToy.getName()).getCount() > 1) {
-                listPrizeToys.addRaffleToy(listToys.getToyByName(raffleToy.getName()));
-                listToys.getToyByName(raffleToy.getName())
-                        .setCount(listToys.getToyByName(raffleToy.getName()).getCount() - 1);
-                System.out.println(listPrizeToys.getPrizeToysList());
+            Toy raffleToy = listToys.raffleStart();
+            listPrizeToys.addRaffleToy(raffleToy);
+            if (listToys.getToysList().size() > 1 | listToys.getToysList().get(0).getCount() > 1) {
+                if (raffleToy.getCount() > 1) {
+                    raffleToy.setCount(raffleToy.getCount() - 1);
+                } else {
+                    listToys.deleteToy(raffleToy);
+                }
             } else {
-                listPrizeToys.addRaffleToy(listToys.getToyByName(raffleToy.getName()));
-                listToys.deleteToy(listToys.getToyByName(raffleToy.getName()));
-                System.out.println(listPrizeToys.getPrizeToysList());
+                System.out.println("Это была последняя игрушка.");
+                listToys.deleteToy(listToys.getToysList().get(0));
             }
-        } else {
-            // raffleToy=listToys.getToysList().get(0);
-            listPrizeToys.addRaffleToy(listToys.getToyByName(raffleToy.getName()));
-            System.out.println("Это была последняя игрушка.");
-            listToys.deleteToy(listToys.getToysList().get(0));
-            // return raffleToy;
-            System.out.println(listPrizeToys.getPrizeToysList());
-        }
         return listPrizeToys;
     }
 
+    // Удаление призовой игрушки, уладенная игрушка Дозаписывается в файл
+    // "listGiveOutToys.dat"
     public void deletePrizeToy() {
         Toy giveOutToy = listPrizeToys.poll();
-        System.out.println("Выдана игрушка: "+giveOutToy);
-        fileHandler.SaveToFileGiveOutToys(giveOutToy, fileGiveOut);
+        if (giveOutToy == null)
+            System.out.println("Список призовых игрушек пуст. Запустите розыгрыш призовых игрушек.");
+        else {
+            System.out.println("Выдана игрушка: " + giveOutToy);
+            fileHandler.SaveToFileGiveOutToys(giveOutToy, fileGiveOut);
+        }
     }
-
-    // public String savePrizeToy() {
-    // Toy giveOutToy = listPrizeToys.poll();
-    // fileHandler.SaveToFileGiveOutToys(giveOutToy, fileGiveOut);
-    // return listPrizeToys.toString();
-    // }
 }

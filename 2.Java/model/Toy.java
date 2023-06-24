@@ -54,7 +54,7 @@ public class Toy implements Serializable {
 
     @Override
     public String toString() {
-        return id + ", " + name + ", " + count + ", " + weight + ";\n";
+        return "\n" + id + ", " + name + ", " + count + ", " + weight;
     }
 
 }
